@@ -1,0 +1,81 @@
+0 verbose cli /Users/maximiliandietel/.nvm/versions/node/v20.11.0/bin/node /Users/maximiliandietel/.nvm/versions/node/v20.11.0/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@10.2.4
+2 info using node@v20.11.0
+3 timing npm:load:whichnode Completed in 1ms
+4 timing config:load:defaults Completed in 1ms
+5 timing config:load:file:/Users/maximiliandietel/.nvm/versions/node/v20.11.0/lib/node_modules/npm/npmrc Completed in 0ms
+6 timing config:load:builtin Completed in 0ms
+7 timing config:load:cli Completed in 1ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/Users/maximiliandietel/Developer/icofi/.npmrc Completed in 0ms
+10 timing config:load:project Completed in 2ms
+11 timing config:load:file:/Users/maximiliandietel/.npmrc Completed in 0ms
+12 timing config:load:user Completed in 0ms
+13 timing config:load:file:/Users/maximiliandietel/.nvm/versions/node/v20.11.0/etc/npmrc Completed in 0ms
+14 timing config:load:global Completed in 1ms
+15 timing config:load:setEnvs Completed in 0ms
+16 timing config:load Completed in 5ms
+17 timing npm:load:configload Completed in 5ms
+18 timing config:load:flatten Completed in 1ms
+19 timing npm:load:mkdirpcache Completed in 0ms
+20 timing npm:load:mkdirplogs Completed in 0ms
+21 verbose title npm exec tsc scripts/fsrs.ts --outDir scripts/dist
+22 verbose argv "exec" "--" "tsc" "scripts/fsrs.ts" "--outDir" "scripts/dist"
+23 timing npm:load:setTitle Completed in 0ms
+24 timing npm:load:display Completed in 1ms
+25 verbose logfile logs-max:10 dir:/Users/maximiliandietel/Developer/icofi/.npm-cache/_logs/2025-11-08T12_30_48_805Z-
+26 verbose logfile /Users/maximiliandietel/Developer/icofi/.npm-cache/_logs/2025-11-08T12_30_48_805Z-debug-0.log
+27 timing npm:load:logFile Completed in 4ms
+28 timing npm:load:timers Completed in 0ms
+29 timing npm:load:configScope Completed in 0ms
+30 timing npm:load Completed in 18ms
+31 silly logfile done cleaning log files
+32 timing arborist:ctor Completed in 1ms
+33 verbose shrinkwrap failed to load node_modules/.package-lock.json missing from lockfile: node_modules/npm-run-path
+34 http fetch GET 200 https://registry.npmjs.org/tsc 177ms (cache miss)
+35 timing arborist:ctor Completed in 1ms
+36 timing arborist:ctor Completed in 0ms
+37 warn exec The following package was not found and will be installed: tsc@2.0.4
+38 timing arborist:ctor Completed in 0ms
+39 timing idealTree:init Completed in 2ms
+40 timing idealTree:userRequests Completed in 0ms
+41 silly idealTree buildDeps
+42 silly fetch manifest tsc@2.0.4
+43 http fetch GET 200 https://registry.npmjs.org/tsc 3ms (cache hit)
+44 silly placeDep ROOT tsc@2.0.4 OK for:  want: 2.0.4
+45 timing idealTree:#root Completed in 6ms
+46 timing idealTree:node_modules/tsc Completed in 0ms
+47 timing idealTree:buildDeps Completed in 6ms
+48 timing idealTree:fixDepFlags Completed in 0ms
+49 timing idealTree Completed in 8ms
+50 timing reify:loadTrees Completed in 8ms
+51 timing reify:diffTrees Completed in 0ms
+52 silly reify moves {}
+53 timing reify:retireShallow Completed in 0ms
+54 timing reify:createSparse Completed in 1ms
+55 timing reify:trashOmits Completed in 0ms
+56 timing reify:loadBundles Completed in 0ms
+57 silly audit bulk request { tsc: [ '2.0.4' ] }
+58 silly tarball no local data for tsc@https://registry.npmjs.org/tsc/-/tsc-2.0.4.tgz. Extracting by manifest.
+59 http fetch GET 200 https://registry.npmjs.org/tsc/-/tsc-2.0.4.tgz 99ms (cache miss)
+60 timing reifyNode:node_modules/tsc Completed in 102ms
+61 timing reify:unpack Completed in 102ms
+62 timing reify:unretire Completed in 0ms
+63 timing build:queue Completed in 1ms
+64 timing build:link:node_modules/tsc Completed in 1ms
+65 timing build:link Completed in 1ms
+66 timing build:deps Completed in 2ms
+67 timing build Completed in 2ms
+68 timing reify:build Completed in 2ms
+69 timing reify:trash Completed in 0ms
+70 timing reify:save Completed in 2ms
+71 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 269ms
+72 timing auditReport:getReport Completed in 269ms
+73 silly audit report {}
+74 timing auditReport:init Completed in 0ms
+75 timing reify:audit Completed in 269ms
+76 timing reify Completed in 280ms
+77 timing command:exec Completed in 1222ms
+78 verbose exit 1
+79 timing npm Completed in 1328ms
+80 verbose code 1

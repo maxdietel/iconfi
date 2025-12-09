@@ -1,0 +1,243 @@
+0 verbose cli /Users/maximiliandietel/.nvm/versions/node/v20.11.0/bin/node /Users/maximiliandietel/.nvm/versions/node/v20.11.0/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@10.2.4
+2 info using node@v20.11.0
+3 timing npm:load:whichnode Completed in 0ms
+4 timing config:load:defaults Completed in 1ms
+5 timing config:load:file:/Users/maximiliandietel/.nvm/versions/node/v20.11.0/lib/node_modules/npm/npmrc Completed in 0ms
+6 timing config:load:builtin Completed in 0ms
+7 timing config:load:cli Completed in 1ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/Users/maximiliandietel/Developer/icofi/.npmrc Completed in 0ms
+10 timing config:load:project Completed in 1ms
+11 timing config:load:file:/Users/maximiliandietel/.npmrc Completed in 0ms
+12 timing config:load:user Completed in 0ms
+13 timing config:load:file:/Users/maximiliandietel/.nvm/versions/node/v20.11.0/etc/npmrc Completed in 0ms
+14 timing config:load:global Completed in 0ms
+15 timing config:load:setEnvs Completed in 0ms
+16 timing config:load Completed in 5ms
+17 timing npm:load:configload Completed in 5ms
+18 timing config:load:flatten Completed in 1ms
+19 timing npm:load:mkdirpcache Completed in 0ms
+20 timing npm:load:mkdirplogs Completed in 0ms
+21 verbose title npm exec ts-node --skipProject scripts/fsrs.ts
+22 verbose argv "exec" "--" "ts-node" "--skipProject" "scripts/fsrs.ts"
+23 timing npm:load:setTitle Completed in 1ms
+24 timing npm:load:display Completed in 0ms
+25 verbose logfile logs-max:10 dir:/Users/maximiliandietel/Developer/icofi/.npm-cache/_logs/2025-11-08T12_31_18_557Z-
+26 verbose logfile /Users/maximiliandietel/Developer/icofi/.npm-cache/_logs/2025-11-08T12_31_18_557Z-debug-0.log
+27 timing npm:load:logFile Completed in 4ms
+28 timing npm:load:timers Completed in 0ms
+29 timing npm:load:configScope Completed in 0ms
+30 timing npm:load Completed in 18ms
+31 silly logfile done cleaning log files
+32 timing arborist:ctor Completed in 1ms
+33 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+34 http fetch GET 200 https://registry.npmjs.org/ts-node 168ms (cache miss)
+35 timing arborist:ctor Completed in 0ms
+36 timing arborist:ctor Completed in 0ms
+37 warn exec The following package was not found and will be installed: ts-node@10.9.2
+38 timing arborist:ctor Completed in 0ms
+39 timing idealTree:init Completed in 1ms
+40 timing idealTree:userRequests Completed in 0ms
+41 silly idealTree buildDeps
+42 silly fetch manifest ts-node@10.9.2
+43 http fetch GET 200 https://registry.npmjs.org/ts-node 3ms (cache hit)
+44 silly fetch manifest @swc/core@>=1.2.50
+45 http fetch GET 200 https://registry.npmjs.org/@swc%2fcore 118ms (cache miss)
+46 silly fetch manifest @swc/helpers@>=0.5.17
+47 http fetch GET 200 https://registry.npmjs.org/@swc%2fhelpers 66ms (cache miss)
+48 silly fetch manifest @swc/wasm@>=1.2.50
+49 http fetch GET 200 https://registry.npmjs.org/@swc%2fwasm 88ms (cache miss)
+50 silly fetch manifest @types/node@*
+51 http fetch GET 200 https://registry.npmjs.org/@types%2fnode 188ms (cache miss)
+52 silly fetch manifest typescript@>=2.7
+53 http fetch GET 200 https://registry.npmjs.org/typescript 240ms (cache miss)
+54 silly placeDep ROOT ts-node@10.9.2 OK for:  want: 10.9.2
+55 silly placeDep ROOT typescript@5.9.3 OK for: ts-node@10.9.2 want: >=2.7
+56 silly placeDep ROOT @types/node@24.10.0 OK for: ts-node@10.9.2 want: *
+57 silly fetch manifest yn@3.1.1
+58 silly fetch manifest arg@^4.1.0
+59 silly fetch manifest diff@^4.0.1
+60 silly fetch manifest acorn@^8.4.1
+61 silly fetch manifest acorn-walk@^8.1.1
+62 silly fetch manifest make-error@^1.1.1
+63 silly fetch manifest create-require@^1.1.0
+64 silly fetch manifest @tsconfig/node10@^1.0.7
+65 silly fetch manifest @tsconfig/node12@^1.0.7
+66 silly fetch manifest @tsconfig/node14@^1.0.0
+67 silly fetch manifest @tsconfig/node16@^1.0.2
+68 silly fetch manifest v8-compile-cache-lib@^3.0.1
+69 silly fetch manifest @cspotcode/source-map-support@^0.8.0
+70 silly fetch manifest undici-types@~7.16.0
+71 http fetch GET 200 https://registry.npmjs.org/yn 98ms (cache miss)
+72 http fetch GET 200 https://registry.npmjs.org/acorn-walk 131ms (cache miss)
+73 http fetch GET 200 https://registry.npmjs.org/diff 136ms (cache miss)
+74 http fetch GET 200 https://registry.npmjs.org/make-error 134ms (cache miss)
+75 http fetch GET 200 https://registry.npmjs.org/arg 142ms (cache miss)
+76 http fetch GET 200 https://registry.npmjs.org/v8-compile-cache-lib 139ms (cache miss)
+77 http fetch GET 200 https://registry.npmjs.org/acorn 144ms (cache miss)
+78 http fetch GET 200 https://registry.npmjs.org/undici-types 142ms (cache miss)
+79 http fetch GET 200 https://registry.npmjs.org/create-require 151ms (cache miss)
+80 http fetch GET 200 https://registry.npmjs.org/@tsconfig%2fnode16 152ms (cache miss)
+81 http fetch GET 200 https://registry.npmjs.org/@tsconfig%2fnode14 164ms (cache miss)
+82 http fetch GET 200 https://registry.npmjs.org/@tsconfig%2fnode10 170ms (cache miss)
+83 http fetch GET 200 https://registry.npmjs.org/@cspotcode%2fsource-map-support 183ms (cache miss)
+84 http fetch GET 200 https://registry.npmjs.org/@tsconfig%2fnode12 188ms (cache miss)
+85 timing idealTree:#root Completed in 955ms
+86 silly placeDep ROOT undici-types@7.16.0 OK for: @types/node@24.10.0 want: ~7.16.0
+87 timing idealTree:node_modules/@types/node Completed in 0ms
+88 silly placeDep ROOT @cspotcode/source-map-support@0.8.1 OK for: ts-node@10.9.2 want: ^0.8.0
+89 silly fetch manifest @jridgewell/trace-mapping@0.3.9
+90 silly placeDep ROOT @tsconfig/node10@1.0.11 OK for: ts-node@10.9.2 want: ^1.0.7
+91 silly placeDep ROOT @tsconfig/node12@1.0.11 OK for: ts-node@10.9.2 want: ^1.0.7
+92 silly placeDep ROOT @tsconfig/node14@1.0.3 OK for: ts-node@10.9.2 want: ^1.0.0
+93 silly placeDep ROOT @tsconfig/node16@1.0.4 OK for: ts-node@10.9.2 want: ^1.0.2
+94 silly placeDep ROOT acorn@8.15.0 OK for: ts-node@10.9.2 want: ^8.4.1
+95 silly placeDep ROOT acorn-walk@8.3.4 OK for: ts-node@10.9.2 want: ^8.1.1
+96 silly placeDep ROOT arg@4.1.3 OK for: ts-node@10.9.2 want: ^4.1.0
+97 silly placeDep ROOT create-require@1.1.1 OK for: ts-node@10.9.2 want: ^1.1.0
+98 silly placeDep ROOT diff@4.0.2 OK for: ts-node@10.9.2 want: ^4.0.1
+99 silly placeDep ROOT make-error@1.3.6 OK for: ts-node@10.9.2 want: ^1.1.1
+100 silly placeDep ROOT v8-compile-cache-lib@3.0.1 OK for: ts-node@10.9.2 want: ^3.0.1
+101 silly placeDep ROOT yn@3.1.1 OK for: ts-node@10.9.2 want: 3.1.1
+102 http fetch GET 200 https://registry.npmjs.org/@jridgewell%2ftrace-mapping 68ms (cache miss)
+103 timing idealTree:node_modules/ts-node Completed in 71ms
+104 silly placeDep ROOT @jridgewell/trace-mapping@0.3.9 OK for: @cspotcode/source-map-support@0.8.1 want: 0.3.9
+105 silly fetch manifest @jridgewell/resolve-uri@^3.0.3
+106 silly fetch manifest @jridgewell/sourcemap-codec@^1.4.10
+107 http fetch GET 200 https://registry.npmjs.org/@jridgewell%2fsourcemap-codec 56ms (cache miss)
+108 http fetch GET 200 https://registry.npmjs.org/@jridgewell%2fresolve-uri 58ms (cache miss)
+109 timing idealTree:node_modules/@cspotcode/source-map-support Completed in 59ms
+110 silly placeDep ROOT @jridgewell/resolve-uri@3.1.2 OK for: @jridgewell/trace-mapping@0.3.9 want: ^3.0.3
+111 silly placeDep ROOT @jridgewell/sourcemap-codec@1.5.5 OK for: @jridgewell/trace-mapping@0.3.9 want: ^1.4.10
+112 timing idealTree:node_modules/@jridgewell/trace-mapping Completed in 1ms
+113 timing idealTree:node_modules/@jridgewell/resolve-uri Completed in 0ms
+114 timing idealTree:node_modules/@jridgewell/sourcemap-codec Completed in 0ms
+115 timing idealTree:node_modules/@tsconfig/node10 Completed in 0ms
+116 timing idealTree:node_modules/@tsconfig/node12 Completed in 0ms
+117 timing idealTree:node_modules/@tsconfig/node14 Completed in 0ms
+118 timing idealTree:node_modules/@tsconfig/node16 Completed in 0ms
+119 timing idealTree:node_modules/acorn Completed in 0ms
+120 timing idealTree:node_modules/acorn-walk Completed in 0ms
+121 timing idealTree:node_modules/arg Completed in 0ms
+122 timing idealTree:node_modules/create-require Completed in 0ms
+123 timing idealTree:node_modules/diff Completed in 0ms
+124 timing idealTree:node_modules/make-error Completed in 0ms
+125 timing idealTree:node_modules/typescript Completed in 0ms
+126 timing idealTree:node_modules/undici-types Completed in 0ms
+127 timing idealTree:node_modules/v8-compile-cache-lib Completed in 0ms
+128 timing idealTree:node_modules/yn Completed in 0ms
+129 timing idealTree:buildDeps Completed in 1088ms
+130 timing idealTree:fixDepFlags Completed in 1ms
+131 timing idealTree Completed in 1091ms
+132 timing reify:loadTrees Completed in 1092ms
+133 timing reify:diffTrees Completed in 1ms
+134 silly reify moves {}
+135 timing reify:retireShallow Completed in 1ms
+136 timing reify:createSparse Completed in 2ms
+137 timing reify:trashOmits Completed in 0ms
+138 timing reify:loadBundles Completed in 0ms
+139 silly audit bulk request {
+139 silly audit   'ts-node': [ '10.9.2' ],
+139 silly audit   typescript: [ '5.9.3' ],
+139 silly audit   '@types/node': [ '24.10.0' ],
+139 silly audit   'undici-types': [ '7.16.0' ],
+139 silly audit   '@cspotcode/source-map-support': [ '0.8.1' ],
+139 silly audit   '@tsconfig/node10': [ '1.0.11' ],
+139 silly audit   '@tsconfig/node12': [ '1.0.11' ],
+139 silly audit   '@tsconfig/node14': [ '1.0.3' ],
+139 silly audit   '@tsconfig/node16': [ '1.0.4' ],
+139 silly audit   acorn: [ '8.15.0' ],
+139 silly audit   'acorn-walk': [ '8.3.4' ],
+139 silly audit   arg: [ '4.1.3' ],
+139 silly audit   'create-require': [ '1.1.1' ],
+139 silly audit   diff: [ '4.0.2' ],
+139 silly audit   'make-error': [ '1.3.6' ],
+139 silly audit   'v8-compile-cache-lib': [ '3.0.1' ],
+139 silly audit   yn: [ '3.1.1' ],
+139 silly audit   '@jridgewell/trace-mapping': [ '0.3.9' ],
+139 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+139 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ]
+139 silly audit }
+140 silly tarball no local data for v8-compile-cache-lib@https://registry.npmjs.org/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz. Extracting by manifest.
+141 silly tarball no local data for @jridgewell/sourcemap-codec@https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz. Extracting by manifest.
+142 silly tarball no local data for yn@https://registry.npmjs.org/yn/-/yn-3.1.1.tgz. Extracting by manifest.
+143 silly tarball no local data for make-error@https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz. Extracting by manifest.
+144 silly tarball no local data for @jridgewell/resolve-uri@https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz. Extracting by manifest.
+145 silly tarball no local data for create-require@https://registry.npmjs.org/create-require/-/create-require-1.1.1.tgz. Extracting by manifest.
+146 silly tarball no local data for diff@https://registry.npmjs.org/diff/-/diff-4.0.2.tgz. Extracting by manifest.
+147 silly tarball no local data for acorn-walk@https://registry.npmjs.org/acorn-walk/-/acorn-walk-8.3.4.tgz. Extracting by manifest.
+148 silly tarball no local data for acorn@https://registry.npmjs.org/acorn/-/acorn-8.15.0.tgz. Extracting by manifest.
+149 silly tarball no local data for @tsconfig/node16@https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz. Extracting by manifest.
+150 silly tarball no local data for @tsconfig/node12@https://registry.npmjs.org/@tsconfig/node12/-/node12-1.0.11.tgz. Extracting by manifest.
+151 silly tarball no local data for @tsconfig/node14@https://registry.npmjs.org/@tsconfig/node14/-/node14-1.0.3.tgz. Extracting by manifest.
+152 silly tarball no local data for @jridgewell/trace-mapping@https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz. Extracting by manifest.
+153 silly tarball no local data for arg@https://registry.npmjs.org/arg/-/arg-4.1.3.tgz. Extracting by manifest.
+154 silly tarball no local data for undici-types@https://registry.npmjs.org/undici-types/-/undici-types-7.16.0.tgz. Extracting by manifest.
+155 silly tarball no local data for @tsconfig/node10@https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.11.tgz. Extracting by manifest.
+156 silly tarball no local data for @cspotcode/source-map-support@https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz. Extracting by manifest.
+157 silly tarball no local data for typescript@https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz. Extracting by manifest.
+158 silly tarball no local data for ts-node@https://registry.npmjs.org/ts-node/-/ts-node-10.9.2.tgz. Extracting by manifest.
+159 silly tarball no local data for @types/node@https://registry.npmjs.org/@types/node/-/node-24.10.0.tgz. Extracting by manifest.
+160 http fetch GET 200 https://registry.npmjs.org/yn/-/yn-3.1.1.tgz 89ms (cache miss)
+161 timing reifyNode:node_modules/yn Completed in 98ms
+162 http fetch GET 200 https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz 88ms (cache miss)
+163 timing reifyNode:node_modules/@tsconfig/node16 Completed in 99ms
+164 http fetch GET 200 https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz 92ms (cache miss)
+165 timing reifyNode:node_modules/make-error Completed in 100ms
+166 http fetch GET 200 https://registry.npmjs.org/@tsconfig/node14/-/node14-1.0.3.tgz 88ms (cache miss)
+167 timing reifyNode:node_modules/@tsconfig/node14 Completed in 100ms
+168 http fetch GET 200 https://registry.npmjs.org/create-require/-/create-require-1.1.1.tgz 91ms (cache miss)
+169 timing reifyNode:node_modules/create-require Completed in 101ms
+170 http fetch GET 200 https://registry.npmjs.org/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz 95ms (cache miss)
+171 timing reifyNode:node_modules/v8-compile-cache-lib Completed in 102ms
+172 http fetch GET 200 https://registry.npmjs.org/@tsconfig/node12/-/node12-1.0.11.tgz 92ms (cache miss)
+173 timing reifyNode:node_modules/@tsconfig/node12 Completed in 104ms
+174 http fetch GET 200 https://registry.npmjs.org/acorn-walk/-/acorn-walk-8.3.4.tgz 94ms (cache miss)
+175 timing reifyNode:node_modules/acorn-walk Completed in 105ms
+176 http fetch GET 200 https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz 95ms (cache miss)
+177 timing reifyNode:node_modules/@jridgewell/resolve-uri Completed in 106ms
+178 http fetch GET 200 https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz 102ms (cache miss)
+179 timing reifyNode:node_modules/@jridgewell/sourcemap-codec Completed in 110ms
+180 http fetch GET 200 https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz 98ms (cache miss)
+181 timing reifyNode:node_modules/@jridgewell/trace-mapping Completed in 110ms
+182 http fetch GET 200 https://registry.npmjs.org/acorn/-/acorn-8.15.0.tgz 112ms (cache miss)
+183 timing reifyNode:node_modules/acorn Completed in 123ms
+184 http fetch GET 200 https://registry.npmjs.org/arg/-/arg-4.1.3.tgz 113ms (cache miss)
+185 timing reifyNode:node_modules/arg Completed in 125ms
+186 http fetch GET 200 https://registry.npmjs.org/diff/-/diff-4.0.2.tgz 116ms (cache miss)
+187 timing reifyNode:node_modules/diff Completed in 126ms
+188 http fetch GET 200 https://registry.npmjs.org/undici-types/-/undici-types-7.16.0.tgz 114ms (cache miss)
+189 timing reifyNode:node_modules/undici-types Completed in 127ms
+190 http fetch GET 200 https://registry.npmjs.org/ts-node/-/ts-node-10.9.2.tgz 146ms (cache miss)
+191 timing reifyNode:node_modules/ts-node Completed in 161ms
+192 http fetch GET 200 https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.11.tgz 161ms (cache miss)
+193 timing reifyNode:node_modules/@tsconfig/node10 Completed in 173ms
+194 http fetch GET 200 https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz 161ms (cache miss)
+195 timing reifyNode:node_modules/@cspotcode/source-map-support Completed in 173ms
+196 http fetch GET 200 https://registry.npmjs.org/@types/node/-/node-24.10.0.tgz 225ms (cache miss)
+197 timing reifyNode:node_modules/@types/node Completed in 240ms
+198 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 248ms
+199 timing auditReport:getReport Completed in 250ms
+200 silly audit report {}
+201 timing auditReport:init Completed in 0ms
+202 timing reify:audit Completed in 251ms
+203 http fetch GET 200 https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz 297ms (cache miss)
+204 timing reifyNode:node_modules/typescript Completed in 311ms
+205 timing reify:unpack Completed in 312ms
+206 timing reify:unretire Completed in 0ms
+207 timing build:queue Completed in 1ms
+208 timing build:link:node_modules/acorn Completed in 1ms
+209 timing build:link:node_modules/typescript Completed in 1ms
+210 timing build:link:node_modules/ts-node Completed in 2ms
+211 timing build:link Completed in 2ms
+212 timing build:deps Completed in 3ms
+213 timing build Completed in 3ms
+214 timing reify:build Completed in 3ms
+215 timing reify:trash Completed in 0ms
+216 timing reify:save Completed in 5ms
+217 timing reify Completed in 1420ms
+218 timing command:exec Completed in 3089ms
+219 verbose exit 1
+220 timing npm Completed in 3236ms
+221 verbose code 1
