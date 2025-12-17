@@ -73,7 +73,7 @@ export function SingleChoiceQuestionCard({
               className={`flex items-center justify-center gap-3 p-3 rounded border bg-muted/50 hover:bg-muted transition-colors cursor-pointer ${borderClass}`}
             >
               <RadioGroupItem value={option.id} id={option.id} disabled={isBack} />
-              <span className="flex-1 font-normal">{option.text}</span>
+              <span className="flex-1">{option.text}</span>
             </Label>
           );
         })}

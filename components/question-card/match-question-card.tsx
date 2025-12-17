@@ -27,16 +27,16 @@ type MatchQuestionCardProps = {
 type DraggableRightItemProps = {
   option: { id: string; text: string; correct_match_id?: string | null };
   isBack: boolean;
-  leftOptions: Array<{ id: string; text: string }>;
-  matchedLeftId: string | undefined;
 };
 
 type DroppableLeftItemProps = {
   leftOption: { id: string; text: string };
+  matchedRightId: string | undefined;
+  rightOptions: Array<{ id: string; text: string; correct_match_id?: string | null }>;
   isBack: boolean;
 };
 
-function DraggableRightItem({ option, isBack, leftOptions, matchedLeftId }: DraggableRightItemProps) {
+function DraggableRightItem({ option, isBack }: DraggableRightItemProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: option.id,
     disabled: isBack,
@@ -47,44 +47,28 @@ function DraggableRightItem({ option, isBack, leftOptions, matchedLeftId }: Drag
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const isCorrectMatch = isBack && matchedLeftId && option.correct_match_id === matchedLeftId;
-  const isIncorrectMatch = isBack && matchedLeftId && option.correct_match_id !== matchedLeftId;
-  
-  const correctLeft = option.correct_match_id
-    ? leftOptions.find((leftOpt) => leftOpt.id === option.correct_match_id) ?? null
-    : null;
-
-  const borderClasses = isCorrectMatch
-    ? "border-green-500 dark:border-green-400 bg-green-50/10 dark:bg-green-950/20"
-    : isIncorrectMatch
-    ? "border-red-500 dark:border-red-400 bg-red-50/10 dark:bg-red-950/20"
-    : "border-muted";
-
   return (
     <div
       ref={setNodeRef}
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex-1 p-3 rounded border bg-muted/50 hover:bg-muted transition-colors cursor-grab active:cursor-grabbing touch-none ${
+      className={`flex-1 p-3 rounded-r border border-muted bg-muted/50 hover:bg-muted transition-colors cursor-grab active:cursor-grabbing touch-none ${
         isDragging ? "z-50" : ""
-      } ${borderClasses}`}
+      }`}
     >
       <div className="flex items-center gap-3">
         <GripVertical className="h-5 w-5 text-muted-foreground shrink-0" />
         <span className="flex-1 text-sm">{option.text}</span>
       </div>
-      {isIncorrectMatch && correctLeft && (
-        <div className="text-sm text-muted-foreground mt-1">
-          ← {correctLeft.text}
-        </div>
-      )}
     </div>
   );
 }
 
 function DroppableLeftItem({
   leftOption,
+  matchedRightId,
+  rightOptions,
   isBack,
 }: DroppableLeftItemProps) {
   const { setNodeRef, isOver } = useDroppable({
@@ -92,16 +76,40 @@ function DroppableLeftItem({
     disabled: isBack,
   });
 
+  const matchedRight = matchedRightId
+    ? rightOptions.find((opt) => opt.id === matchedRightId) ?? null
+    : null;
+
+  const isCorrectMatch = isBack && matchedRight && matchedRight.correct_match_id === leftOption.id;
+  const isIncorrectMatch = isBack && matchedRight && matchedRight.correct_match_id !== leftOption.id;
+
+  const correctRight = isBack && isIncorrectMatch
+    ? rightOptions.find((opt) => opt.correct_match_id === leftOption.id) ?? null
+    : null;
+
   const borderClasses = isOver && !isBack
     ? "border-white bg-muted"
+    : isBack && isCorrectMatch
+    ? "border-green-500 dark:border-green-400 bg-green-50/10 dark:bg-green-950/20"
+    : isBack && isIncorrectMatch
+    ? "border-red-500 dark:border-red-400 bg-red-50/10 dark:bg-red-950/20"
     : "border-muted";
+
+  const truncateText = (text: string) => {
+    return text.length > 10 ? text.slice(0, 10) + "..." : text;
+  };
 
   return (
     <div
       ref={setNodeRef}
-      className={`flex-1 p-3 rounded border bg-muted/50 transition-colors ${borderClasses}`}
+      className={`flex-1 p-3 rounded-l border bg-muted/50 transition-colors ${borderClasses}`}
     >
       <div className="font-medium text-sm">{leftOption.text}</div>
+      {isIncorrectMatch && correctRight && (
+        <div className="text-sm text-muted-foreground mt-1">
+          → {truncateText(correctRight.text)}
+        </div>
+      )}
     </div>
   );
 }
@@ -263,14 +271,14 @@ export function MatchQuestionCard({
               <div key={leftOption.id} className="flex items-stretch gap-2">
                 <DroppableLeftItem
                   leftOption={leftOption}
+                  matchedRightId={matchedRightId}
+                  rightOptions={rightOptions}
                   isBack={isBack}
                 />
                 {matchedRightId && (
                   <DraggableRightItem
                     option={rightOptions.find(opt => opt.id === matchedRightId)!}
                     isBack={isBack}
-                    leftOptions={leftOptions}
-                    matchedLeftId={leftOption.id}
                   />
                 )}
               </div>
@@ -282,7 +290,7 @@ export function MatchQuestionCard({
             const draggedOption = rightOptions.find((opt) => opt.id === activeId);
 
             return (
-              <div className="flex items-center gap-3 p-3 rounded border bg-muted/50 shadow-lg opacity-90">
+              <div className="flex items-center gap-3 p-3 rounded-r border bg-muted/50 shadow-lg opacity-90">
                 <GripVertical className="h-5 w-5 text-muted-foreground shrink-0" />
                 <span className="flex-1 text-sm">{draggedOption?.text}</span>
               </div>
