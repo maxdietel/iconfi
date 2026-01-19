@@ -73,7 +73,7 @@ export const FlashcardsContext = createContext<{
   gradeFlashcard: (flashcard: Flashcard, grade: Grade) => Promise<void>;
   updateNotes: (flashcard: Flashcard, notes: string) => Promise<void>;
 }>({
-  flashcardsData: { cards: { new: [], review: [] }, stats: { total: 0, new: 0, learning: 0, review: 0 } },
+  flashcardsData: { cards: { new: [], review: [] }, stats: { totalDue: 0, newDue: 0, learningDue: 0, reviewDue: 0 } },
   currentFlashcard: null,
   gradeFlashcard: async () => {},
   updateNotes: async () => {},

@@ -35,7 +35,7 @@ export const TopicLink: FC<TopicLinkProps> = ({ topic }) => {
         <CardHeader>
           <CardTitle>{topic.topic}</CardTitle>
           <CardDescription>
-            {stats ? `${stats.total} Karten zum Lernen` : "Lade Kartenübersicht..."}
+            {stats ? `${stats.totalDue} Karten zum Lernen (${stats.total} insgesamt)` : "Lade Kartenübersicht..."}            
           </CardDescription>
         </CardHeader>
       </Card>

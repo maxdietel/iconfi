@@ -185,14 +185,14 @@ export function removeCardFromSessionData(
   const stats = { ...data.stats };
   
   if (card.state === State.New) {
-    stats.new--;
+    stats.newDue--;
   } else if (card.state === State.Learning || card.state === State.Relearning) {
-    stats.learning--;
+    stats.learningDue--;
   } else if (card.state === State.Review) {
-    stats.review--;
+    stats.reviewDue--;
   }
 
-  stats.total--;
+  stats.totalDue--;
 
   return {
     cards: {

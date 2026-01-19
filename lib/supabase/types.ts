@@ -19,9 +19,10 @@ export type Topic = Database["public"]["Tables"]["topic"]["Row"];
 
 export interface TopicSRStats {
   total: number;
-  new: number;
-  learning: number;
-  review: number;
+  totalDue: number;
+  newDue: number;
+  learningDue: number;
+  reviewDue: number;
 }
 
 export type { Question, Option, LearningMaterialPage, LearningMaterialTopic, LearningMaterial, SRCard };
