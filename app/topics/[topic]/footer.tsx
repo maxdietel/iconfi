@@ -53,9 +53,11 @@ export const TopicFooter: FC<TopicFooterProps> = ({
     // State will be reset automatically when currentFlashcard changes
   };
 
+  const pages = currentFlashcard.question.learning_material_pages || [];
+  const explanation = currentFlashcard.question.ai_explanation || "";
+
   // Back side: show grading buttons if correct, or next card button if wrong
   if (isAnswerCorrect === true) {
-    const pages = currentFlashcard.question.learning_material_pages || [];
     return (
       <>
         <footer className="border-t border-t-border flex-shrink-0">
@@ -66,7 +68,7 @@ export const TopicFooter: FC<TopicFooterProps> = ({
                   <MessageCircleQuestionIcon />
                 </Button>
               </DrawerTrigger>
-              <RelatedPagesDrawerContent pages={pages} />
+              <RelatedPagesDrawerContent explanation={explanation}  pages={pages} />
             </Drawer>
             <Button onClick={async () => await gradeFlashcard(currentFlashcard, Rating.Hard)} className="grow basis-1/3 bg-orange-500 hover:bg-orange-500/90">Schwer</Button>
             <Button onClick={async () => await gradeFlashcard(currentFlashcard, Rating.Good)} className="grow basis-1/3 bg-green-500 hover:bg-green-500/90">Gut</Button>
@@ -77,8 +79,7 @@ export const TopicFooter: FC<TopicFooterProps> = ({
     );
   }
 
-  // Wrong answer or null (shouldn't happen, but fallback): show next card button
-  const pages = currentFlashcard.question.learning_material_pages || [];
+  // Wrong answer (or null, shouldn't happen, but fallback): show next card button
   return (
     <>
       <footer className="border-t border-t-border flex-shrink-0">
@@ -89,7 +90,7 @@ export const TopicFooter: FC<TopicFooterProps> = ({
                 <MessageCircleQuestionIcon />
               </Button>
             </DrawerTrigger>
-            <RelatedPagesDrawerContent pages={pages} />
+            <RelatedPagesDrawerContent explanation={explanation} pages={pages} />
           </Drawer>
           <Button onClick={handleNextCard} className="grow">
             Nächste Karte

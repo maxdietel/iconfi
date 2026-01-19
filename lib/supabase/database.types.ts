@@ -285,6 +285,8 @@ export type Database = {
       }
       question: {
         Row: {
+          ai_explanation: string | null
+          ai_explanation_updated_at: string | null
           code: string
           content: string | null
           context: string | null
@@ -301,6 +303,8 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          ai_explanation?: string | null
+          ai_explanation_updated_at?: string | null
           code: string
           content?: string | null
           context?: string | null
@@ -317,6 +321,8 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          ai_explanation?: string | null
+          ai_explanation_updated_at?: string | null
           code?: string
           content?: string | null
           context?: string | null
