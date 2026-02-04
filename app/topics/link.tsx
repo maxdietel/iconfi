@@ -23,7 +23,10 @@ export const TopicLink: FC<TopicLinkProps> = ({ topic }) => {
         throw userError;
       }
 
+      console.log(topic.id)
+
       const numLeftToLearn = await getNumberLeftToLearnTodayByTopic(supabase, user, topic.id);
+      console.log("numLeftToLearn", numLeftToLearn);
       const stats = await getStatsByTopic(supabase, user, topic.id, numLeftToLearn);
       setStats(stats);
     })();

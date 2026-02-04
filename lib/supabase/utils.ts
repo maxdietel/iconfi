@@ -15,7 +15,9 @@ export async function getNumberLeftToLearnTodayByTopic(
   // Since Supabase doesn't support distinct count directly, we fetch distinct card_ids and count them
   const { data, error } = await supabase
     .from("sr_review_log")
-    .select(`card_id, sr_card ( question ( examination ( topic_id ) ) )`)
+    .select(
+      `card_id, sr_card!inner( question!inner( examination!inner( topic_id ) ) )`,
+    )
     .eq("user_id", user.id)
     .eq("sr_card.question.examination.topic_id", topicId)
     .eq("state", 0)
@@ -54,7 +56,10 @@ export async function getLearningDueCount(
 ): Promise<number> {
   const { count: learningDueCount, error: learningDueError } = await supabase
     .from("sr_card")
-    .select(`id, question ( examination ( topic_id ) )`, { count: "exact", head: true })
+    .select(`id, question!inner( examination!inner( topic_id ) )`, {
+      count: "exact",
+      head: true,
+    })
     .eq("user_id", user.id)
     .eq("question.examination.topic_id", topicId)
     .lte("due", new Date().toISOString())
@@ -74,7 +79,10 @@ export async function getReviewDueCount(
 ): Promise<number> {
   const { count: reviewDueCount, error: reviewDueError } = await supabase
     .from("sr_card")
-    .select(`id, question ( examination ( topic_id ) )`, { count: "exact", head: true })
+    .select(`id, question!inner( examination!inner( topic_id ) )`, {
+      count: "exact",
+      head: true,
+    })
     .eq("user_id", user.id)
     .eq("question.examination.topic_id", topicId)
     .lte("due", new Date().toISOString())
@@ -93,9 +101,9 @@ export async function getNewCount(
   topicId: string,
 ): Promise<number> {
     // Get all existing cards for this user and topic
-    const { data: srCards, error: srCardsError } = await supabase
+  const { data: srCards, error: srCardsError } = await supabase
     .from("sr_card")
-    .select(`question_id, question ( examination ( topic_id ) )`)
+    .select(`question_id, question!inner( examination!inner( topic_id ) )`)
     .eq("user_id", user.id)
     .eq("question.examination.topic_id", topicId);
 
@@ -107,7 +115,7 @@ export async function getNewCount(
 
   const { count: newCount, error: newError } = await supabase
     .from("question")
-    .select(`id, examination ( topic_id )`, { count: "exact", head: true })
+    .select(`id, examination!inner( topic_id )`, { count: "exact", head: true })
     .eq("examination.topic_id", topicId)
     .not("id", "in", `(${existingQuestionIds.join(",")})`)
 
@@ -124,7 +132,7 @@ export async function getTotalCount(
 ): Promise<number> {
   const { count: totalCount, error: totalError } = await supabase
     .from("question")
-    .select(`id, examination ( topic_id )`, { count: "exact", head: true })
+    .select(`id, examination!inner( topic_id )`, { count: "exact", head: true })
     .eq("examination.topic_id", topicId)
 
   if (totalError) {
