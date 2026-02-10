@@ -7,6 +7,7 @@ import {
 type ExternalResource = Pick<Database["public"]["Tables"]["learning_material_external_resource"]["Row"], "id" | "description" | "type" | "url">;
 
 export interface Flashcard extends Omit<InsertSRCard, "due" | "last_review">, Card {
+  isDisliked: boolean;
   question: Question & {
     options: Option[],
     learning_material_pages: (Pick<LearningMaterialPage, "id" | "key_concepts" | "number" | "title" | "description"> & {

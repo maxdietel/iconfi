@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Check, X } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useColorblindMode } from "@/components/colorblind-mode-provider";
 
 import { QuestionCardShell } from "./question-card-shell";
 import { Flashcard } from "@/app/topics/[topic]/types";
@@ -26,6 +28,7 @@ export function SingleChoiceQuestionCard({
   const [selectedOptionId, setSelectedOptionId] = useState<string | undefined>(undefined);
   const isBack = side === "back";
   const correctOptionId = options.find((opt) => opt.is_correct === true)?.id;
+  const { isColorblindMode } = useColorblindMode();
 
   // Reset selection when card changes
   useEffect(() => {
@@ -53,18 +56,27 @@ export function SingleChoiceQuestionCard({
         {options.map((option) => {
           const isCorrect = option.is_correct === true;
           const isSelected = selectedOptionId === option.id;
+          const feedbackStatus = isBack
+            ? isSelected && isCorrect
+              ? "correct"
+              : !isSelected && isCorrect
+                ? "missed"
+                : isSelected && !isCorrect
+                  ? "incorrect"
+                  : null
+            : null;
 
           let borderClass = "";
           if (isBack) {
             if (isSelected && isCorrect) {
               // User selected it and it's correct - green solid border
-              borderClass = "border-green-500 dark:border-green-400";
+              borderClass = "border-2 border-green-500 dark:border-green-400";
             } else if (!isSelected && isCorrect) {
               // User didn't select it but it's correct - green dashed border (missed answer)
-              borderClass = "border-green-500 dark:border-green-400 border-dashed";
+              borderClass = "border-2 border-green-500 dark:border-green-400 border-dashed";
             } else if (isSelected && !isCorrect) {
               // User selected it but it's wrong - red border
-              borderClass = "border-red-500 dark:border-red-400";
+              borderClass = "border-2 border-red-500 dark:border-red-400";
             }
           }
 
@@ -73,9 +85,28 @@ export function SingleChoiceQuestionCard({
               key={option.id}
               htmlFor={option.id}
               className={`flex items-center justify-center gap-3 p-3 rounded border bg-muted/50 hover:bg-muted transition-colors cursor-pointer ${borderClass}`}
+              aria-invalid={feedbackStatus === "incorrect"}
             >
               <RadioGroupItem value={option.id} id={option.id} disabled={isBack} />
               <span className="flex-1">{option.text}</span>
+              {isColorblindMode && feedbackStatus === "correct" && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide">
+                  <Check className="h-4 w-4" />
+                  Richtig
+                </span>
+              )}
+              {isColorblindMode && feedbackStatus === "missed" && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide">
+                  <Check className="h-4 w-4" />
+                  Richtig
+                </span>
+              )}
+              {isColorblindMode && feedbackStatus === "incorrect" && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide">
+                  <X className="h-4 w-4" />
+                  Falsch
+                </span>
+              )}
             </Label>
           );
         })}

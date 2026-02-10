@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { GripVertical } from "lucide-react";
+import { Check, GripVertical, X } from "lucide-react";
 import {
   DndContext,
   DragEndEvent,
@@ -19,6 +19,7 @@ import {
 import { QuestionCardShell } from "./question-card-shell";
 import { Flashcard } from "@/app/topics/[topic]/types";
 import { QuestionCardState } from "./types";
+import { useColorblindMode } from "@/components/colorblind-mode-provider";
 
 type MatchQuestionCardProps = {
   flashcard: Flashcard;
@@ -36,6 +37,7 @@ type DroppableLeftItemProps = {
   matchedRightId: string | undefined;
   rightOptions: Array<{ id: string; text: string; correct_match_id?: string | null }>;
   isBack: boolean;
+  isColorblindMode: boolean;
 };
 
 function DraggableRightItem({ option, isBack }: DraggableRightItemProps) {
@@ -72,6 +74,7 @@ function DroppableLeftItem({
   matchedRightId,
   rightOptions,
   isBack,
+  isColorblindMode,
 }: DroppableLeftItemProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: leftOption.id,
@@ -82,8 +85,12 @@ function DroppableLeftItem({
     ? rightOptions.find((opt) => opt.id === matchedRightId) ?? null
     : null;
 
-  const isCorrectMatch = isBack && matchedRight && matchedRight.correct_match_id === leftOption.id;
-  const isIncorrectMatch = isBack && matchedRight && matchedRight.correct_match_id !== leftOption.id;
+  const isCorrectMatch = Boolean(
+    isBack && matchedRight && matchedRight.correct_match_id === leftOption.id,
+  );
+  const isIncorrectMatch = Boolean(
+    isBack && matchedRight && matchedRight.correct_match_id !== leftOption.id,
+  );
 
   const correctRight = isBack && isIncorrectMatch
     ? rightOptions.find((opt) => opt.correct_match_id === leftOption.id) ?? null
@@ -92,23 +99,41 @@ function DroppableLeftItem({
   const borderClasses = isOver && !isBack
     ? "border-white bg-muted"
     : isBack && isCorrectMatch
-    ? "border-green-500 dark:border-green-400 bg-green-50/10 dark:bg-green-950/20"
+    ? "border-2 border-green-500 dark:border-green-400 bg-green-50/10 dark:bg-green-950/20"
     : isBack && isIncorrectMatch
-    ? "border-red-500 dark:border-red-400 bg-red-50/10 dark:bg-red-950/20"
+    ? "border-2 border-red-500 dark:border-red-400 border-dashed bg-red-50/10 dark:bg-red-950/20"
     : "border-muted";
 
   const truncateText = (text: string) => {
     return text.length > 10 ? text.slice(0, 10) + "..." : text;
   };
 
+  const correctionHintId = `match-correction-${leftOption.id}`;
+
   return (
     <div
       ref={setNodeRef}
       className={`flex-1 p-3 rounded-l border bg-muted/50 transition-colors ${borderClasses}`}
+      aria-invalid={isIncorrectMatch}
+      aria-describedby={isIncorrectMatch && correctRight ? correctionHintId : undefined}
     >
-      <div className="font-medium text-sm">{leftOption.text}</div>
+      <div className="flex items-center gap-2">
+        <div className="font-medium text-sm flex-1">{leftOption.text}</div>
+        {isBack && isColorblindMode && isCorrectMatch && (
+          <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide">
+            <Check className="h-4 w-4" />
+            Richtig
+          </span>
+        )}
+        {isBack && isColorblindMode && isIncorrectMatch && (
+          <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide">
+            <X className="h-4 w-4" />
+            Falsch
+          </span>
+        )}
+      </div>
       {isIncorrectMatch && correctRight && (
-        <div className="text-sm text-muted-foreground mt-1">
+        <div id={correctionHintId} className="text-sm text-muted-foreground mt-1">
           → {truncateText(correctRight.text)}
         </div>
       )}
@@ -128,6 +153,7 @@ export function MatchQuestionCard({
   const [mounted, setMounted] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const isBack = side === "back";
+  const { isColorblindMode } = useColorblindMode();
 
   const leftOptions = useMemo(
     () => options.filter((opt) => opt.side === "left"),
@@ -276,6 +302,7 @@ export function MatchQuestionCard({
                   matchedRightId={matchedRightId}
                   rightOptions={rightOptions}
                   isBack={isBack}
+                  isColorblindMode={isColorblindMode}
                 />
                 {matchedRightId && (
                   <DraggableRightItem

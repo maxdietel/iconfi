@@ -2,18 +2,41 @@ import { SupabaseClient, User } from "@supabase/supabase-js";
 import { createEmptyCard, State } from "ts-fsrs";
 import { getNumberLeftToLearnTodayByTopic, getStatsByTopic } from "@/lib/supabase/utils";
 import { Flashcard, TopicFlashcardsData } from "./types";
-import { Database } from "@/lib/supabase/database.types";
+
+async function getDislikedQuestionIdsByTopic(
+  supabase: SupabaseClient,
+  userId: string,
+  topicId: string,
+): Promise<Set<string>> {
+  const { data, error } = await supabase
+    .from("dislike")
+    .select(`question_id, question!inner( examination!inner( topic_id ) )`)
+    .eq("user_id", userId)
+    .eq("question.examination.topic_id", topicId);
+
+  if (error) {
+    throw new Error(`Failed to fetch disliked questions: ${error.message}`);
+  }
+
+  return new Set(data.map((dislike) => dislike.question_id));
+}
 
 /**
  * Retrieves cards that are due for review.
  * Filters out cards in learning state (state = 0) and returns cards that are due.
  */
 export async function getReviewFlashcardsByTopic(
-  supabase: SupabaseClient<Database>,
+  supabase: SupabaseClient,
   user: User,
   topicId: string,
 ): Promise<Flashcard[]> {
   console.log("Fetching review cards");
+  const dislikedQuestionIds = await getDislikedQuestionIdsByTopic(
+    supabase,
+    user.id,
+    topicId,
+  );
+
   // Query sr_card with question and options joined
   // Filter by: user_id, state != 0 (not learning), due <= now
   // Order by difficulty ascending, limit results
@@ -40,6 +63,7 @@ export async function getReviewFlashcardsByTopic(
     notes: card.notes || null,
     due: new Date(card.due),
     last_review: card.last_review ? new Date(card.last_review) : undefined,
+    isDisliked: dislikedQuestionIds.has(card.question.id),
   }));
 
   console.log(`Fetched ${reviewFlashcards.length} review cards`);
@@ -68,6 +92,11 @@ export async function getNewFlashcardsByTopic(
   const limit = Math.min(numLeftToLearn, Number(process.env.NEXT_PUBLIC_MAX_CARDS_TO_FETCH));
 
   console.log(`User can still learn ${numLeftToLearn} cards today`);
+  const dislikedQuestionIds = await getDislikedQuestionIdsByTopic(
+    supabase,
+    user.id,
+    topicId,
+  );
 
   // Step 1: Get all question_ids the user already has flashcards for
   const { data: srCards, error: srCardsError } = await supabase
@@ -100,6 +129,7 @@ export async function getNewFlashcardsByTopic(
       ...card,
       question,
       question_id: question.id,
+      isDisliked: dislikedQuestionIds.has(question.id),
     };
   });
 

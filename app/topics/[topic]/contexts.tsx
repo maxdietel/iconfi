@@ -72,11 +72,13 @@ export const FlashcardsContext = createContext<{
   currentFlashcard: Flashcard | null;
   gradeFlashcard: (flashcard: Flashcard, grade: Grade) => Promise<void>;
   updateNotes: (flashcard: Flashcard, notes: string) => Promise<void>;
+  toggleDislikeQuestion: (flashcard: Flashcard) => Promise<void>;
 }>({
   flashcardsData: { cards: { new: [], review: [] }, stats: { total: 0, totalDue: 0, newDue: 0, learningDue: 0, reviewDue: 0 } },
   currentFlashcard: null,
   gradeFlashcard: async () => {},
   updateNotes: async () => {},
+  toggleDislikeQuestion: async () => {},
 });
 
 interface FlashcardsDataProviderProps {
@@ -180,12 +182,97 @@ export const FlashcardsDataProvider: FC<FlashcardsDataProviderProps> = ({ childr
     });
   }
 
+  async function toggleDislikeQuestion(flashcard: Flashcard) {
+    const nextDislikedState = !flashcard.isDisliked;
+    const questionId = flashcard.question.id;
+
+    // Optimistically update local state for snappy feedback.
+    setFlashcardsData((prevData) => {
+      const updateCard = (card: Flashcard): Flashcard => {
+        if (card.question.id === questionId) {
+          return { ...card, isDisliked: nextDislikedState };
+        }
+        return card;
+      };
+
+      return {
+        ...prevData,
+        cards: {
+          new: prevData.cards.new.map(updateCard),
+          review: prevData.cards.review.map(updateCard),
+        },
+      };
+    });
+
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      // Roll back optimistic update when user context is missing.
+      setFlashcardsData((prevData) => {
+        const rollbackCard = (card: Flashcard): Flashcard => {
+          if (card.question.id === questionId) {
+            return { ...card, isDisliked: !nextDislikedState };
+          }
+          return card;
+        };
+
+        return {
+          ...prevData,
+          cards: {
+            new: prevData.cards.new.map(rollbackCard),
+            review: prevData.cards.review.map(rollbackCard),
+          },
+        };
+      });
+      throw new Error("User not found");
+    }
+
+    const { error } = nextDislikedState
+      ? await supabase
+          .from("dislike")
+          .upsert(
+            {
+              question_id: questionId,
+              user_id: user.id,
+            },
+            { onConflict: "user_id,question_id" },
+          )
+      : await supabase
+          .from("dislike")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("question_id", questionId);
+
+    if (error) {
+      // Roll back optimistic update if persisting failed.
+      setFlashcardsData((prevData) => {
+        const rollbackCard = (card: Flashcard): Flashcard => {
+          if (card.question.id === questionId) {
+            return { ...card, isDisliked: !nextDislikedState };
+          }
+          return card;
+        };
+
+        return {
+          ...prevData,
+          cards: {
+            new: prevData.cards.new.map(rollbackCard),
+            review: prevData.cards.review.map(rollbackCard),
+          },
+        };
+      });
+      throw new Error(error.message);
+    }
+  }
+
   return (
     <FlashcardsContext.Provider value={{ 
       flashcardsData, 
       currentFlashcard, 
       gradeFlashcard, 
-      updateNotes
+      updateNotes,
+      toggleDislikeQuestion,
     }}>
       {children}
     </FlashcardsContext.Provider>

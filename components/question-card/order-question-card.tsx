@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { GripVertical } from "lucide-react";
+import { Check, GripVertical, X } from "lucide-react";
 import {
   DndContext,
   closestCenter,
@@ -25,6 +25,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { QuestionCardShell } from "./question-card-shell";
 import { Flashcard } from "@/app/topics/[topic]/types";
 import { QuestionCardState } from "./types";
+import { useColorblindMode } from "@/components/colorblind-mode-provider";
 
 type OrderQuestionCardProps = {
   flashcard: Flashcard;
@@ -36,6 +37,7 @@ type SortableOptionItemProps = {
   option: { id: string; text: string; correct_order_index?: number | null };
   index: number;
   isBack: boolean;
+  isColorblindMode: boolean;
   disabled?: boolean;
 };
 
@@ -43,6 +45,7 @@ function SortableOptionItem({
   option,
   index,
   isBack,
+  isColorblindMode,
   disabled = false,
 }: SortableOptionItemProps) {
   const {
@@ -67,9 +70,9 @@ function SortableOptionItem({
   // Check if this option is in the correct position based on user's order
   const isInCorrectPosition = isBack && correctIndex === index;
   const borderClass = isBack && isInCorrectPosition
-    ? "border-green-500 dark:border-green-400"
+    ? "border-2 border-green-500 dark:border-green-400"
     : isBack && !isInCorrectPosition
-    ? "border-red-500 dark:border-red-400"
+    ? "border-2 border-red-500 dark:border-red-400 border-dashed"
     : "";
 
   return (
@@ -79,11 +82,18 @@ function SortableOptionItem({
       className={`flex items-center justify-center gap-3 p-3 rounded border bg-muted/50 hover:bg-muted transition-colors cursor-grab active:cursor-grabbing touch-none ${
         isDragging ? "shadow-lg z-50" : ""
       } ${borderClass}`}
+      aria-invalid={isBack && !isInCorrectPosition}
       {...attributes}
       {...listeners}
     >
       <GripVertical className="h-5 w-5 text-muted-foreground" />
       <span className="flex-1">{option.text}</span>
+      {isBack && isColorblindMode && (
+        <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide">
+          {isInCorrectPosition ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+          {isInCorrectPosition ? "Richtig" : "Falsch"}
+        </span>
+      )}
       {isBack && (
         <span className="text-sm font-semibold text-muted-foreground w-6 text-right">
           {correctIndex + 1}
@@ -104,6 +114,7 @@ export function OrderQuestionCard({
   const [orderedOptionIds, setOrderedOptionIds] = useState<string[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const isBack = side === "back";
+  const { isColorblindMode } = useColorblindMode();
 
   // Initialize orderedOptionIds with all option IDs in original order when component mounts or card changes
   useEffect(() => {
@@ -184,6 +195,7 @@ export function OrderQuestionCard({
                 option={option}
                 index={index}
                 isBack={isBack}
+                isColorblindMode={isColorblindMode}
                 disabled={isBack}
               />
             ))}
