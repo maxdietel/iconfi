@@ -317,6 +317,7 @@ export type Database = {
           content: string | null
           context: string | null
           created_at: string
+          disabled: boolean
           embedding: string | null
           examination_id: string
           id: string
@@ -325,6 +326,7 @@ export type Database = {
           pages_matched_at: string | null
           question_text: string
           question_type: string
+          text_updated_at: string | null
           topic: string
           updated_at: string | null
         }
@@ -335,6 +337,7 @@ export type Database = {
           content?: string | null
           context?: string | null
           created_at?: string
+          disabled?: boolean
           embedding?: string | null
           examination_id: string
           id?: string
@@ -343,6 +346,7 @@ export type Database = {
           pages_matched_at?: string | null
           question_text: string
           question_type: string
+          text_updated_at?: string | null
           topic: string
           updated_at?: string | null
         }
@@ -353,6 +357,7 @@ export type Database = {
           content?: string | null
           context?: string | null
           created_at?: string
+          disabled?: boolean
           embedding?: string | null
           examination_id?: string
           id?: string
@@ -361,6 +366,7 @@ export type Database = {
           pages_matched_at?: string | null
           question_text?: string
           question_type?: string
+          text_updated_at?: string | null
           topic?: string
           updated_at?: string | null
         }

@@ -20,6 +20,7 @@ export async function getNumberLeftToLearnTodayByTopic(
     )
     .eq("user_id", user.id)
     .eq("sr_card.question.examination.topic_id", topicId)
+    .eq("sr_card.question.disabled", false)
     .eq("state", 0)
     .lte("created_at", new Date().toISOString());
 
@@ -62,6 +63,7 @@ export async function getLearningDueCount(
     })
     .eq("user_id", user.id)
     .eq("question.examination.topic_id", topicId)
+    .eq("question.disabled", false)
     .lte("due", new Date().toISOString())
     .in("state", [1, 3]);
 
@@ -85,6 +87,7 @@ export async function getReviewDueCount(
     })
     .eq("user_id", user.id)
     .eq("question.examination.topic_id", topicId)
+    .eq("question.disabled", false)
     .lte("due", new Date().toISOString())
     .eq("state", 2);
 
@@ -105,7 +108,8 @@ export async function getNewCount(
     .from("sr_card")
     .select(`question_id, question!inner( examination!inner( topic_id ) )`)
     .eq("user_id", user.id)
-    .eq("question.examination.topic_id", topicId);
+    .eq("question.examination.topic_id", topicId)
+    .eq("question.disabled", false);
 
   if (srCardsError) {
     throw new Error(`Failed to fetch existing cards: ${srCardsError.message}`);
@@ -117,6 +121,7 @@ export async function getNewCount(
     .from("question")
     .select(`id, examination!inner( topic_id )`, { count: "exact", head: true })
     .eq("examination.topic_id", topicId)
+    .eq("disabled", false)
     .not("id", "in", `(${existingQuestionIds.join(",")})`)
 
   if (newError) {
@@ -134,6 +139,7 @@ export async function getTotalCount(
     .from("question")
     .select(`id, examination!inner( topic_id )`, { count: "exact", head: true })
     .eq("examination.topic_id", topicId)
+    .eq("disabled", false)
 
   if (totalError) {
     throw new Error(`Failed to fetch total count: ${totalError.message}`);

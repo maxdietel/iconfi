@@ -12,7 +12,8 @@ async function getDislikedQuestionIdsByTopic(
     .from("dislike")
     .select(`question_id, question!inner( examination!inner( topic_id ) )`)
     .eq("user_id", userId)
-    .eq("question.examination.topic_id", topicId);
+    .eq("question.examination.topic_id", topicId)
+    .eq("question.disabled", false);
 
   if (error) {
     throw new Error(`Failed to fetch disliked questions: ${error.message}`);
@@ -47,6 +48,7 @@ export async function getReviewFlashcardsByTopic(
     )
     .eq("user_id", user.id)
     .eq("question.examination.topic_id", topicId)
+    .eq("question.disabled", false)
     .neq("state", 0) // Filter out cards in learning state (state = 0)
     .lte("due", new Date().toISOString())
     .order("difficulty", { ascending: true })
@@ -103,7 +105,8 @@ export async function getNewFlashcardsByTopic(
     .from("sr_card")
     .select(`question_id, question!inner( examination!inner( topic_id ) )`)
     .eq("user_id", user.id)
-    .eq("question.examination.topic_id", topicId);
+    .eq("question.examination.topic_id", topicId)
+    .eq("question.disabled", false);
 
   if (srCardsError) throw srCardsError;
 
@@ -119,6 +122,7 @@ export async function getNewFlashcardsByTopic(
       )
       .not("id", "in", `(${existingIds.join(",")})`)
       .eq("examination.topic_id", topicId)
+      .eq("disabled", false)
       .limit(limit);
 
   if (questionsWithContentsError) throw questionsWithContentsError;
