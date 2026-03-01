@@ -101,7 +101,7 @@ function DroppableLeftItem({
     : isBack && isCorrectMatch
     ? "border-2 border-green-500 dark:border-green-400 bg-green-50/10 dark:bg-green-950/20"
     : isBack && isIncorrectMatch
-    ? "border-2 border-red-500 dark:border-red-400 border-dashed bg-red-50/10 dark:bg-red-950/20"
+    ? "border-2 border-red-500 dark:border-red-400 bg-red-50/10 dark:bg-red-950/20"
     : "border-muted";
 
   const truncateText = (text: string) => {
