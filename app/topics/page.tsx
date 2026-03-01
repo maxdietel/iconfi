@@ -16,7 +16,8 @@ export default async function TopicsPage() {
 
   const { data: topics, error } = await supabase
     .from("topic")
-    .select("*");
+    .select("*")
+    .eq("disabled", false);
 
   if (error) {
     console.error("Error fetching topics:", error);

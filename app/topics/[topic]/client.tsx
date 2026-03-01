@@ -52,9 +52,9 @@ export const TopicPageClient: FC<TopicPageClientProps> = ({ topic }) => {
           </div>
 
           <div className="flex items-center gap-1">
-            <Badge>{stats.newDue}</Badge>
-            <Badge className="bg-orange-500">{stats.learningDue}</Badge>
-            <Badge className="bg-green-500">{stats.reviewDue}</Badge>
+            <Badge className="bg-sky-500">{stats.newDue}</Badge>
+            <Badge className="bg-yellow-500">{stats.learningDue}</Badge>
+            <Badge className="bg-violet-500">{stats.reviewDue}</Badge>
           </div>
         </div>
       </header>

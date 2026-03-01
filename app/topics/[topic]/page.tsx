@@ -21,7 +21,7 @@ export default async function TopicFlashcardsPage({
 
   // Get topic
   // TODO: Change Topic.topic to Topic.name/title
-  const { data: topic, error: topicError } = await supabase.from("topic").select("*").eq("id", topicId).single();
+  const { data: topic, error: topicError } = await supabase.from("topic").select("*").eq("id", topicId).eq("disabled", false).single();
   if (topicError || !topic) {
     console.error("Error fetching topic:", topicError);
     notFound();

@@ -504,16 +504,19 @@ export type Database = {
       topic: {
         Row: {
           created_at: string
+          disabled: boolean
           id: string
           topic: string
         }
         Insert: {
           created_at?: string
+          disabled?: boolean
           id?: string
           topic: string
         }
         Update: {
           created_at?: string
+          disabled?: boolean
           id?: string
           topic?: string
         }
