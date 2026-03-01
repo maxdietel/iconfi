@@ -72,7 +72,7 @@ function SortableOptionItem({
   const borderClass = isBack && isInCorrectPosition
     ? "border-2 border-green-500 dark:border-green-400"
     : isBack && !isInCorrectPosition
-    ? "border-2 border-red-500 dark:border-red-400 border-dashed"
+    ? "border-2 border-red-500 dark:border-red-400"
     : "";
 
   return (
