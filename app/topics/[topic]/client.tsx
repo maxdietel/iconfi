@@ -36,10 +36,6 @@ export const TopicPageClient: FC<TopicPageClientProps> = ({ topic }) => {
     setSide("back");
   }, []);
 
-  if (!currentFlashcard) {
-    return null;
-  }
-
   return (
     <div className="flex flex-col h-screen">
       <header className="border-b border-b-border flex-shrink-0">
@@ -59,20 +55,32 @@ export const TopicPageClient: FC<TopicPageClientProps> = ({ topic }) => {
         </div>
       </header>
 
-      <main className="flex flex-col max-w-5xl mx-auto w-full p-4 gap-4 overflow-y-auto flex-1 min-h-0">          
-        <QuestionCard 
-          flashcard={currentFlashcard} 
-          side={side}
-          onStateChange={handleStateChange}
-        />
-      </main>
+      {currentFlashcard ? (
+        <>
+          <main className="flex flex-col max-w-5xl mx-auto w-full p-4 gap-4 overflow-y-auto flex-1 min-h-0">
+            <QuestionCard
+              flashcard={currentFlashcard}
+              side={side}
+              onStateChange={handleStateChange}
+            />
+          </main>
 
-      <TopicFooter 
-        side={side}
-        hasSelection={hasSelection}
-        isAnswerCorrect={isAnswerCorrect}
-        onReveal={handleReveal}
-      />
+          <TopicFooter
+            side={side}
+            hasSelection={hasSelection}
+            isAnswerCorrect={isAnswerCorrect}
+            onReveal={handleReveal}
+          />
+        </>
+      ) : (
+        <main className="flex flex-col items-center justify-center gap-4 flex-1 text-muted-foreground">
+          <p className="text-lg font-medium text-foreground">Alles gelernt für jetzt!</p>
+          <p>Komm später wieder, wenn neue Karten fällig sind.</p>
+          <Link href="/topics" className={buttonVariants({ variant: "default" })}>
+            Zurück zu den Themen
+          </Link>
+        </main>
+      )}
     </div>
   )
 }
